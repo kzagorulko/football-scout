@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/field"
+    tools:context=".TaskFragment">
+
+    <ImageView
+        android:id="@+id/imageForward"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/forward_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toBottomOf="@+id/imageAttackingMidfielderCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageMidfieldCenterLeft"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/central_midfield_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageDefenderCenterRight"
+        app:layout_constraintStart_toEndOf="@+id/imageDefenderLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageAttackingMidfielderCenter"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/central_attacking_midfielder_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toTopOf="@+id/imageDefenderLeft"
+        app:layout_constraintEnd_toStartOf="@+id/imageAttackingMidfielderRight"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageAttackingMidfielderLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageAttackingMidfielderRight"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/right_attacking_midfielder_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toTopOf="@+id/imageDefenderRight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageMidfielderCenterRight"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageAttackingMidfielderLeft"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/left_attacking_midfielder_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toTopOf="@+id/imageDefenderLeft"
+        app:layout_constraintEnd_toStartOf="@+id/imageMidfieldCenterLeft"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageDefenderLeft"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/left_defender_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageDefenderCenterLeft"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageMidfieldCenterLeft" />
+
+    <ImageView
+        android:id="@+id/imageMidfielderCenterRight"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/central_midfield_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageDefenderRight"
+        app:layout_constraintStart_toEndOf="@+id/imageDefenderCenterLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageDefenderCenterRight"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/center_defender_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageDefenderRight"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageDefenderCenterLeft"
+        app:layout_constraintTop_toTopOf="@+id/imageMidfielderCenterRight" />
+
+    <ImageView
+        android:id="@+id/imageDefenderRight"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/right_defender_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageDefenderCenterRight"
+        app:layout_constraintTop_toTopOf="@+id/imageMidfielderCenterRight" />
+
+    <ImageView
+        android:id="@+id/imageDefenderCenterLeft"
+        android:layout_width="69dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/center_defender_image_description"
+        android:src="@drawable/tshirt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageDefenderCenterRight"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageDefenderLeft"
+        app:layout_constraintTop_toTopOf="@+id/imageMidfieldCenterLeft" />
+</android.support.constraint.ConstraintLayout>

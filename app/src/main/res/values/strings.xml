@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Football Scout</string>
+    <string name="continueButton">Продолжить игру</string>
+    <string name="newGameButton">Новая игра</string>
+    <string name="loadScreenImageDescription">the image on the load screen</string>
+    <string name="imageTextLayoutDescription">Image in recycle or swipe View</string>
+    <string name="title_activity_game">" "</string>
+    <string name="title_home">Профиль</string>
+    <string name="title_dashboard">Задачи</string>
+    <string name="title_search">Поиск</string>
+    <string name="forward_image_description">Forward image</string>
+    <string name="central_midfield_image_description">Central midfield image</string>
+    <string name="central_attacking_midfielder_image_description">Central attacking midfielder image</string>
+    <string name="right_attacking_midfielder_image_description">Right attacking midfielder image</string>
+    <string name="left_attacking_midfielder_image_description">Left attacking midfielder image</string>
+    <string name="left_defender_image_description">Left defender image</string>
+    <string name="center_defender_image_description">Center defender image</string>
+    <string name="right_defender_image_description">Right defender image</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
