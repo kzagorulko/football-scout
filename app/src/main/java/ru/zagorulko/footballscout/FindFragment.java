@@ -1,19 +1,24 @@
 package ru.zagorulko.footballscout;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+/* import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView; */
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
 
 
@@ -55,5 +60,7 @@ public class FindFragment extends Fragment  implements RecyclerAdapter.OnItemLis
     public void onItemClick(int position) {
         Toast toast = Toast.makeText(getContext(), Integer.toString(position), Toast.LENGTH_SHORT);
         toast.show();
+        Intent intent = new Intent(getContext(), TeamActivity.class);
+        startActivity(intent);
     }
 }

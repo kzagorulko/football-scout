@@ -1,13 +1,18 @@
 package ru.zagorulko.footballscout;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+/* mport android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView; */
 import android.widget.Toast;
 
 import java.util.Objects;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ChooseTeamActivity extends AppCompatActivity implements RecyclerAdapter.OnItemListener{
 

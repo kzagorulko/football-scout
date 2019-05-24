@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.rambler.libs.swipe_layout.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:left_swipe_enabled="true"
+    app:right_swipe_enabled="true">
+
+    <!--CENTER. app:gravity="center" - is default value -->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--RIGHT-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/rightSwipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:gravity="right"
+        app:bring_to_clamp="150dp"
+        app:clamp="self"
+        app:sticky="100dp"
+        android:orientation="horizontal">
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <!--LEFT-->
+    <androidx.appcompat.widget.ContentFrameLayout
+        android:id="@+id/leftSwipe"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        app:gravity="left"
+        app:bring_to_clamp="100dp"
+        app:clamp="self"
+        app:sticky="none">
+    </androidx.appcompat.widget.ContentFrameLayout>
+
+</ru.rambler.libs.swipe_layout.SwipeLayout>
