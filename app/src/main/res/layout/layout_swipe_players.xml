@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ru.rambler.libs.swipe_layout.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_layout"
+    android:layout_width="match_parent"
+    android:layout_height="72dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/center_sl">
+
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="238dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="@string/default_last_name"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/position"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/default_position"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/forward_skill"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/forward_skill"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="20"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/defender_skill"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/defender_skill"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="20"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/physical_skill"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/physical_skill"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="20"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/right_view"
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:background="@color/right_sl"
+        android:orientation="vertical"
+        app:bring_to_clamp="150dp"
+        app:clamp="self"
+        app:gravity="right"
+        app:sticky="100dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            app:srcCompat="@drawable/explore"
+            android:tint="@color/right_sl_text"
+            android:padding="2dp"
+            android:contentDescription="@string/explore_picture_description" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_right_text"
+            android:textColor="@color/right_sl_text"
+            android:gravity="center"/>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/left_view"
+        android:layout_width="110dp"
+        android:layout_height="match_parent"
+        android:background="@color/left_sl"
+        android:orientation="vertical"
+        app:bring_to_clamp="150dp"
+        app:clamp="self"
+        app:gravity="left"
+        app:sticky="100dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            app:srcCompat="@drawable/ic_grade_black_24dp"
+            android:contentDescription="@string/recommend_image_description"
+            android:tint="@color/left_sl_text"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_left_text"
+            android:gravity="center"
+            android:textColor="@color/left_sl_text"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</ru.rambler.libs.swipe_layout.SwipeLayout>
