@@ -55,10 +55,9 @@ class Settings {
          */
         String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
         assert language != null;
-        return language.equals("RU") ?
-                new String[]{"Фамилия", "ПОЗ", "ВОЗ", "АТК", "ЗАЩ", "ФИЗ"} :
-               language.equals("EN") ?
-                new String[]{"Last Name", "POS", "AGE", "ATC", "DEF", "PHY"} : new String[]{""};
+        return language.equals("RU") ? new String[]{"Фамилия", "ПОЗ", "ВОЗ", "АТК", "ЗАЩ", "ФИЗ"} :
+               language.equals("EN") ? new String[]{"Last Name", "POS", "AGE", "ATC", "DEF", "PHY"} :
+                                       new String[]{""};
     }
 
     static String getChooseTeamTitle(Context context) {
@@ -76,7 +75,6 @@ class Settings {
         return context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
     }
 
-
     static String getPositionsThatRequireStrengthening(Context context) {
         String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
         assert language != null;
@@ -93,6 +91,20 @@ class Settings {
 
     static String getResearchedTeam(Context context) {
         return context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(RESEARCHED_TEAM, "");
+    }
+
+    static String[] getPositions(Context context) {
+        String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
+        assert language != null;
+        return language.equals("RU") ? new String[]{"ЦЗ", "ЛЗ", "ПЗ", "ЦП", "АПЛ", "АПЦ", "АПП", "НП"} :
+               language.equals("EN") ? new String[]{"LB", "CB", "RB", "CM", "LW", "AM", "RW", "CF"} :
+                                       new String[]{""};
+    }
+
+    static String getName(Context context) {
+        String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
+        assert language != null;
+        return getFirstName(language) + " " + getLastName(language);
     }
 
     // setters
@@ -146,5 +158,74 @@ class Settings {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(SELECTED_TEAM, selectedTeam);
         editor.apply();
+    }
+
+    // private functions
+
+    private static String getFirstName(String language) {
+        String[] names;
+        switch (language) {
+            case "RU":
+                names = new String[]{
+                        "Авдей", "Аверкий", "Авксентий", "Агафон", "Александр", "Алексей", "Альберт", "Альвиан", "Анатолий",
+                        "Андрей", "Антон", "Антонин", "Анфим", "Аристарх", "Аркадий", "Арсений", "Артём", "Артур", "Архипп",
+                        "Афанасий", "Богдан", "Борис", "Вадим", "Валентин", "Валерий", "Валерьян", "Варлам", "Варфоломей",
+                        "Василий", "Венедикт", "Вениамин", "Викентий", "Виктор", "Виссарион", "Виталий", "Владимир", "Владислав",
+                        "Владлен", "Влас", "Всеволод", "Вячеслав", "Гавриил", "Галактион", "Геласий", "Геннадий", "Георгий",
+                        "Герасим", "Герман", "Глеб", "Гордей", "Григорий", "Даниил", "Демид", "Демьян", "Денис", "Дмитрий",
+                        "Добрыня", "Донат", "Дорофей", "Евгений", "Евграф", "Евдоким", "Евсей", "Евстафий", "Егор", "Емельян",
+                        "Еремей", "Ермолай", "Ефим", "Ждан", "Зиновий", "Иакинф", "Иван", "Игнатий", "Игорь", "Илья",
+                        "Иннокентий", "Ираклий", "Ириней", "Исидор", "Иулиан", "Ким", "Кирилл", "Климент", "Кондрат",
+                        "Константин", "Корнилий", "Кузьма", "Куприян", "Лаврентий", "Лев", "Леонид", "Леонтий", "Лука", "Лукий",
+                        "Лукьян", "Магистриан", "Макар", "Максим", "Марк", "Мартын", "Матвей", "Мелентий", "Мирон", "Мирослав",
+                        "Митрофан", "Михаил", "Мстислав", "Назар", "Нестор", "Никанор", "Никита", "Никифор", "Николай", "Никон",
+                        "Олег", "Онисим", "Павел", "Пантелеймон", "Парфений", "Пётр", "Платон", "Порфирий", "Потап", "Пров",
+                        "Прокопий", "Протасий", "Прохор", "Разумник", "Родион", "Роман", "Ростислав", "Руслан", "Савва",
+                        "Савелий", "Самуил", "Святополк", "Святослав", "Севастьян", "Семён", "Сергей", "Сильвестр", "Сильвестр",
+                        "Созон", "Спиридон", "Станислав", "Степан", "Тарас", "Тимофей", "Тимур", "Тихон", "Тихон", "Трифон",
+                        "Трофим", "Фаддей", "Фёдор", "Федосей", "Федот", "Феликс", "Феоктист", "Филат", "Филипп", "Фома",
+                        "Харитон", "Христофор", "Эдуард", "Эраст", "Юлиан", "Юрий", "Юстин", "Яков", "Якун", "Ярослав"
+                };
+                break;
+            case "EN":
+                names = new String[]{"John"};
+                break;
+            default:
+                names = new String[]{""};
+                break;
+        }
+
+        return names[(int)(Math.random() * names.length)];
+    }
+
+    private static String getLastName(String language) {
+        String[] lastNames;
+        switch (language) {
+            case "RU":
+                lastNames = new String[]{
+                        "Иванов", "Смирнов", "Кузнецов", "Попов", "Васильев", "Петров", "Соколов", "Михайлов", "Новиков",
+                        "Федоров", "Морозов", "Волков", "Алексеев", "Лебедев", "Семенов", "Егоров", "Павлов", "Козлов",
+                        "Степанов", "Николаев", "Орлов", "Андреев", "Макаров", "Никитин", "Захаров", "Зайцев", "Соловьев",
+                        "Борисов", "Яковлев", "Григорьев", "Романов", "Воробьев", "Сергеев", "Кузьмин", "Фролов", "Александров",
+                        "Дмитриев", "Королев", "Гусев", "Киселев", "Ильин", "Максимов", "Поляков", "Сорокин", "Виноградов",
+                        "Ковалев", "Белов", "Медведев", "Антонов", "Тарасов", "Жуков", "Баранов", "Филиппов", "Комаров",
+                        "Давыдов", "Беляев", "Герасимов", "Богданов", "Осипов", "Сидоров", "Матвеев", "Титов", "Марков",
+                        "Миронов", "Крылов", "Куликов", "Карпов", "Власов", "Мельников", "Денисов", "Гаврилов", "Тихонов",
+                        "Казаков", "Афанасьев", "Данилов", "Савельев", "Тимофеев", "Фомин", "Чернов", "Абрамов", "Мартынов",
+                        "Ефимов", "Федотов", "Щербаков", "Назаров", "Калинин", "Исаев", "Чернышев", "Быков", "Маслов", "Родионов",
+                        "Коновалов", "Лазарев", "Воронин", "Климов", "Филатов", "Пономарев", "Голубев", "Кудрявцев", "Прохоров",
+                        "Наумов", "Потапов", "Журавлев", "Овчинников", "Трофимов", "Леонов", "Соболев", "Ермаков", "Колесников",
+                        "Гончаров", "Емельянов", "Никифоров", "Грачев", "Котов", "Гришин", "Ефремов", "Архипов", "Громов",
+                        "Кириллов", "Малышев", "Панов"
+                };
+                break;
+            case "EN":
+                lastNames = new String[]{"Smith"};
+                break;
+            default:
+                lastNames = new String[]{""};
+                break;
+        }
+        return lastNames[(int)(Math.random() * lastNames.length)];
     }
 }

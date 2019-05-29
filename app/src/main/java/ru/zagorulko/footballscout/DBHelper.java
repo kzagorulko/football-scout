@@ -21,6 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_POSITION = "position";
     private static final String KEY_POTENTIAL = "potential";
     private static final String KEY_TEAM = "team";
+    private static final String KEY_VIEW = "preview";
+    private static final String KEY_RECOMMENDED = "recommended";
 
 
     DBHelper(Context context) {
@@ -38,6 +40,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 KEY_PHYSICAL_SKILL + " INTEGER," +
                 KEY_POTENTIAL + " INTEGER," +
                 KEY_POSITION + " TEXT," +
+                KEY_VIEW + " TINYINT," +
+                KEY_RECOMMENDED + " BIT," +
                 KEY_TEAM + " TEXT);"
         );
     }
@@ -53,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void insert(String name, int age, int assaulterSkill, int defenderSkill, int physicalSkill, String position, int potential,
-                       String team, SQLiteDatabase database) {
+                       String team, SQLiteDatabase database, Integer preview) {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_NAME, name);
@@ -64,6 +68,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_POTENTIAL, potential);
         contentValues.put(KEY_POSITION, position);
         contentValues.put(KEY_TEAM, team);
+        contentValues.put(KEY_VIEW, preview);
+        contentValues.put(KEY_RECOMMENDED, 0);
 
 
 
