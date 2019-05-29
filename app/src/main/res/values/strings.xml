@@ -20,9 +20,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_last_name">Last Name</string>
-    <string name="default_position">CD</string>
+    <string name="default_position">АПЛ</string>
     <string name="default_right_text">Анализ</string>
     <string name="explore_picture_description">explore picture</string>
     <string name="default_left_text">Рекомендовать</string>
     <string name="recommend_image_description">recommend image</string>
+    <string name="default_skill">20</string>
+    <string name="physic_skill_title_default">PHY</string>
+    <string name="defende_skill_title_default">DEF</string>
+    <string name="forward_skill_title_default">ATC</string>
+    <string name="age_title_default">AGE</string>
+    <string name="position_title_default">POS</string>
+    <string name="last_name_title_default">Last Name</string>
 </resources>

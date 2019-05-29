@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
+import java.util.Set;
 
 
 public class FindFragment extends Fragment  implements RecyclerAdapter.OnItemListener {
@@ -52,15 +53,18 @@ public class FindFragment extends Fragment  implements RecyclerAdapter.OnItemLis
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(images, names, this);
         recyclerView.setAdapter(recyclerAdapter);
 
-
         return view;
     }
 
     @Override
     public void onItemClick(int position) {
-        Toast toast = Toast.makeText(getContext(), Integer.toString(position), Toast.LENGTH_SHORT);
-        toast.show();
+
+        Settings.setResearchedTeam(Objects.requireNonNull(getContext()), Settings.getTeamByPosition(getContext(), position));
+
         Intent intent = new Intent(getContext(), TeamActivity.class);
+        Toast toast = Toast.makeText(getContext(), Settings.getResearchedTeam(getContext()), Toast.LENGTH_SHORT);
+        toast.show();
+
         startActivity(intent);
     }
 }

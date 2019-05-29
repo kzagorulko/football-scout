@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String KEY_TEAM = "team";
 
 
-    public DBHelper(Context context) {
+    DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

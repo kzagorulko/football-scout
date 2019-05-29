@@ -43,10 +43,9 @@ public class TaskFragment extends Fragment {
             cursor.moveToFirst();
             do {
                 positions[i++] = cursor.getString(0);
-            } while (cursor.moveToNext());
+            } while (cursor.moveToNext() && (i < 3));
         } catch (Exception e) {
-            Toast toast = Toast.makeText(getContext(), "Database is empty. Please, create new " + "game.",
-                    Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "Database is empty. Please, create new game.", Toast.LENGTH_SHORT);
             toast.show();
             positions = new String[]{"error", "error", "error"};
         }

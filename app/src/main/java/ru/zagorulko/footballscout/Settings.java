@@ -14,10 +14,15 @@ class Settings {
     private static final String APP_PREFERENCES = "fssettings";
     private static String LANGUAGE = "language";
     private static String SELECTED_TEAM = "selected_team";
+    private static String RESEARCHED_TEAM = "researched_team";
     private static SharedPreferences sharedPreferences;
 
 
     // getters
+
+    static String getTeamByPosition(Context context, int position) {
+        return getTeamNames(context)[position + (position < getSelectedTeam(context) ? 0 : 1)];
+    }
 
     static String[] getTeamNames(Context context)
     {
@@ -37,6 +42,23 @@ class Settings {
                 R.drawable.enisey, R.drawable.krasnodar, R.drawable.krylia, R.drawable.lokomotiv, R.drawable.orenburg,
                 R.drawable.rostov, R.drawable.rubin, R.drawable.spartak, R.drawable.ufa, R.drawable.ural, R.drawable.zenit
         };
+    }
+
+    static String[] getTeamActivityTitle(Context context) {
+        /*
+        In array:  0 - last name,
+                   1 - position,
+                   2 - age,
+                   3 - attacking skills,
+                   4 - defending skills,
+                   5 - physical skill.
+         */
+        String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
+        assert language != null;
+        return language.equals("RU") ?
+                new String[]{"Фамилия", "ПОЗ", "ВОЗ", "АТК", "ЗАЩ", "ФИЗ"} :
+               language.equals("EN") ?
+                new String[]{"Last Name", "POS", "AGE", "ATC", "DEF", "PHY"} : new String[]{""};
     }
 
     static String getChooseTeamTitle(Context context) {
@@ -69,7 +91,18 @@ class Settings {
                language.equals("EN") ? "Teams for search" : "";
     }
 
+    static String getResearchedTeam(Context context) {
+        return context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(RESEARCHED_TEAM, "");
+    }
+
     // setters
+
+    static void setResearchedTeam(Context context, String team) {
+        sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(RESEARCHED_TEAM, team);
+        editor.apply();
+    }
 
     static void setLanguage(Context context, String language) {
         /*
