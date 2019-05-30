@@ -1,9 +1,7 @@
 package ru.zagorulko.footballscout;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.SharedPreferences;
-import android.preference.Preference;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -15,10 +13,15 @@ class Settings {
     private static String LANGUAGE = "language";
     private static String SELECTED_TEAM = "selected_team";
     private static String RESEARCHED_TEAM = "researched_team";
+    private static String ENERGY = "energy";
     private static SharedPreferences sharedPreferences;
 
 
     // getters
+
+    static int getEnergy(Context context) {
+        return context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getInt(ENERGY, -1);
+    }
 
     static String getTeamByPosition(Context context, int position) {
         return getTeamNames(context)[position + (position < getSelectedTeam(context) ? 0 : 1)];
@@ -108,6 +111,13 @@ class Settings {
     }
 
     // setters
+
+    static void setEnergy(Context context, int energy) {
+        sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(ENERGY, energy);
+        editor.apply();
+    }
 
     static void setResearchedTeam(Context context, String team) {
         sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);

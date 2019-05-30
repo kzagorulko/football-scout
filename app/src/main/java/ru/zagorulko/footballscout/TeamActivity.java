@@ -2,6 +2,7 @@ package ru.zagorulko.footballscout;
 
 // import android.support.v7.app.AppCompatActivity;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,19 +13,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +35,8 @@ public class TeamActivity extends AppCompatActivity {
         TextView attack_title   = this.findViewById(R.id.attack_title);
         TextView defender_title = this.findViewById(R.id.defender_title);
         TextView physic_title   = this.findViewById(R.id.physic_title);
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle(Settings.getResearchedTeam(this));
 
         String[] titles = Settings.getTeamActivityTitle(this);
 
@@ -69,7 +63,7 @@ public class TeamActivity extends AppCompatActivity {
                     try {
                         assert viewHolder != null;
                         viewHolder.swipeLayout.animateReset();
-                    } catch (Exception ignored) {};
+                    } catch (Exception ignored) {}
                 }
 
 
@@ -92,26 +86,31 @@ public class TeamActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, final int position) {
 
             View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_swipe_players, parent,
                     false);
             final ViewHolder viewHolder = new ViewHolder(itemView);
 
-            View.OnClickListener onClick = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewHolder.swipeLayout.animateReset();
-                }
-            };
 
             // right swipe
             viewHolder.rightView.setClickable(true);
-            viewHolder.rightView.setOnClickListener(onClick);
+            viewHolder.rightView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    analyze(viewHolder, position);
+                }
+            });
 
             // left swipe
             viewHolder.leftView.setClickable(true);
-            viewHolder.leftView.setOnClickListener(onClick);
+            viewHolder.leftView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setRecommend(viewHolder, position);
+
+                }
+            });
 
             viewHolder.swipeLayout.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
                 @Override
@@ -121,13 +120,13 @@ public class TeamActivity extends AppCompatActivity {
                 // swipe actions
                 @Override
                 public void onSwipeClampReached(SwipeLayout swipeLayout, boolean moveToRight) {
-                    Toast.makeText(swipeLayout.getContext(),
-                            (moveToRight ? "Left" : "Right") + " clamp reached",
-                            Toast.LENGTH_SHORT)
-                            .show();
 
 
-                    viewHolder.swipeLayout.animateReset();
+                    if(moveToRight) {
+                        setRecommend(viewHolder, position);
+                    } else {
+                        analyze(viewHolder, position);
+                    }
                 }
 
                 @Override
@@ -142,6 +141,49 @@ public class TeamActivity extends AppCompatActivity {
             return new ViewHolder(itemView);
         }
 
+        private  void setRecommend(ViewHolder viewHolder, int position) {
+
+            Toast.makeText(context, "Вы порекомедновали " + players[position].getLastName(),
+                    Toast.LENGTH_SHORT).show();
+
+            ContentValues contentValues = new ContentValues();
+            SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+            contentValues.put("recommended", 1);
+            db.update("players", contentValues, "_id=" + players[position].getId(), null);
+
+            viewHolder.swipeLayout.animateReset();
+        }
+
+        @SuppressLint("SetTextI18n")
+        private void analyze(ViewHolder viewHolder, int position) {
+
+            int energy = Settings.getEnergy(context);
+            if(energy > 0) {
+
+                ContentValues contentValues = new ContentValues();
+                SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
+                contentValues.put("preview", 111);
+                db.update("players", contentValues, "_id=" + players[position].getId(), null);
+                players = getPlayersFromTeam(Settings.getResearchedTeam(context));
+
+
+                viewHolder.physical_skill.setText(Integer.toString(players[position].getPhysicalSkill()));
+                viewHolder.defender_skill.setText(Integer.toString(players[position].getDefenderSkill()));
+                viewHolder.forward_skill.setText(Integer.toString(players[position].getForwardSkill()));
+
+                Settings.setEnergy(context, --energy);
+            } else {
+                Toast.makeText(context, "У вас не осталось энергии", Toast.LENGTH_SHORT).show();
+            }
+
+            viewHolder.swipeLayout.animateReset();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
+        }
+
         @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -150,9 +192,15 @@ public class TeamActivity extends AppCompatActivity {
             holder.last_name.setText(players[position].getLastName().split(" ")[1]);
             holder.position.setText(players[position].getPosition());
             holder.age.setText(Integer.toString(players[position].getAge()));
-            holder.forward_skill.setText(Integer.toString(players[position].getForwardSkill()));
-            holder.defender_skill.setText(Integer.toString(players[position].getDefenderSkill()));
-            holder.physical_skill.setText(Integer.toString(players[position].getPhysicalSkill()));
+            holder.forward_skill.setText(
+                    players[position].getPreview(0) ? Integer.toString(players[position].getForwardSkill()) : "—"
+            );
+            holder.defender_skill.setText(
+                    players[position].getPreview(1) ? Integer.toString(players[position].getDefenderSkill()) : "—"
+            );
+            holder.physical_skill.setText(
+                    players[position].getPreview(2) ? Integer.toString(players[position].getPhysicalSkill()) : "—"
+            );
 
             holder.swipeLayout.setOffset(position);
             holder.swipeLayout.reset();
@@ -163,14 +211,17 @@ public class TeamActivity extends AppCompatActivity {
             return players.length;
         }
 
+
+
         private Player[] getPlayersFromTeam(String team) {
 
             SQLiteDatabase db = new DBHelper(context).getReadableDatabase();
             Cursor cursor = db.query(
                     "players",
-                    new String[]{"name", "position", "age", "defender_skill", "assaulter_skill", "physical_skill"},
+                    new String[]{"_id", "name", "position", "age", "assaulter_skill", "defender_skill", "physical_skill",
+                            "preview"},
                     "team = ?",
-                    new String[]{Settings.getResearchedTeam(context)},
+                    new String[]{team},
                     null,
                     null,
                     null
@@ -181,9 +232,10 @@ public class TeamActivity extends AppCompatActivity {
             try{
                 cursor.moveToFirst();
                 do{
-                    temp.add(new Player(cursor.getString(0), cursor.getString(1),
-                            cursor.getInt(2), cursor.getInt(3), cursor.getInt(4),
-                            cursor.getInt(5)));
+                    temp.add(new Player(cursor.getInt(0), cursor.getString(1),
+                            cursor.getString(2),
+                            cursor.getInt(3), cursor.getInt(4), cursor.getInt(5),
+                            cursor.getInt(6), cursor.getInt(7)));
                 }while(cursor.moveToNext());
             } catch (Exception ignored) {
                 Toast toast = Toast.makeText(context, "Database is empty. Please, create new game.", Toast.LENGTH_SHORT);
@@ -200,20 +252,34 @@ public class TeamActivity extends AppCompatActivity {
         }
 
         private class Player {
+            private int id;
             private String last_name;
             private String position;
             private int age;
             private int forward_skill;
             private int defender_skill;
             private int physical_skill;
+            private int[] preview;
 
-            Player(String last_name, String position, int age, int forward_skill, int defender_skill, int physical_skill) {
+            Player(int id, String last_name, String position, int age, int forward_skill, int defender_skill, int physical_skill,
+                   int preview) {
+                this.id = id;
                 this.last_name = last_name;
                 this.position = position;
                 this.age = age;
+                this.preview = new int[3];
+                // preview
+                this.preview[0] = preview / 100;
+                this.preview[1] = preview / 10 % 10;
+                this.preview[2] = preview % 10;
+                // skills
                 this.forward_skill = forward_skill;
                 this.defender_skill = defender_skill;
                 this.physical_skill = physical_skill;
+            }
+
+            int getId() {
+                return id;
             }
 
             String getLastName() {
@@ -236,8 +302,17 @@ public class TeamActivity extends AppCompatActivity {
                 return physical_skill;
             }
 
-            public int getAge() {
+            int getAge() {
                 return age;
+            }
+
+            boolean getPreview(int skill) {
+                /*
+                    forward : 0,
+                    defender : 1,
+                    physical : 2
+                 */
+                return this.preview[skill] > 0;
             }
         }
 
@@ -266,7 +341,6 @@ public class TeamActivity extends AppCompatActivity {
                 leftView       = view.findViewById(R.id.left_view);
 
             }
-
         }
     }
 }

@@ -20,6 +20,8 @@ public class DataGeneration extends AppCompatActivity {
 
         generate(10, true);
 
+        Settings.setEnergy(this, 20);
+
         Intent intent = new Intent(this, ChooseTeamActivity.class);
         startActivity(intent);
         setContentView(R.layout.activity_data_generation);

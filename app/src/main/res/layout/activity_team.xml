@@ -54,7 +54,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="@string/defende_skill_title_default"
+        android:text="@string/defender_skill_title_default"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/physic_title"
         app:layout_constraintTop_toTopOf="parent" />
