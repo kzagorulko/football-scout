@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/field"
-    tools:context=".TaskFragment">
+    tools:context=".TaskFragment"
+    tools:ignore="MissingDefaultResource">
 
     <ImageView
         android:id="@+id/imageForward"

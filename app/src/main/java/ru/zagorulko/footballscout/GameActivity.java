@@ -36,7 +36,12 @@ public class GameActivity extends AppCompatActivity {
 
                     toast = Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT);
                     toast.show();
-                    // TODO {changeFragment}
+                    fragment = new HomeFragment();
+                    changeFragment(fragment);
+
+                    Objects.requireNonNull(getSupportActionBar()).setTitle(
+                            Settings.getTeamNames(getApplicationContext())[Settings.getSelectedTeam(getApplicationContext())]
+                    );
                     return true;
                 case R.id.navigation_task:
                     fragment = new TaskFragment();

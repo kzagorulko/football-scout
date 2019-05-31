@@ -32,4 +32,8 @@
     <string name="age_title_default">AGE</string>
     <string name="position_title_default">POS</string>
     <string name="last_name_title_default">Last Name</string>
+    <string name="default_energy_title">Energy: 20</string>
+    <string name="default_button_text">next off-season</string>
+    <string name="players_progress_default">Players progress</string>
+    <string name="image_progress">image progress</string>
 </resources>

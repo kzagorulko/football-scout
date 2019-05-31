@@ -18,6 +18,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import ru.rambler.libs.swipe_layout.SwipeLayout;
@@ -29,6 +30,7 @@ public class TeamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
 
+        // interface building
         TextView name_title     = this.findViewById(R.id.last_name_title);
         TextView position_title = this.findViewById(R.id.position_title);
         TextView age_title      = this.findViewById(R.id.age_title);
@@ -47,7 +49,7 @@ public class TeamActivity extends AppCompatActivity {
         defender_title.setText(titles[4]);
         physic_title.setText(titles[5]);
 
-
+        // content building
         LinearLayoutManager manager = new LinearLayoutManager(this);
         RecyclerView recycler = findViewById(R.id.recycler);
 
@@ -62,7 +64,7 @@ public class TeamActivity extends AppCompatActivity {
                     final Adapter.ViewHolder viewHolder = (Adapter.ViewHolder)recyclerView.findViewHolderForAdapterPosition(i);
                     try {
                         assert viewHolder != null;
-                        viewHolder.swipeLayout.animateReset();
+                        viewHolder.swipe_layout.animateReset();
                     } catch (Exception ignored) {}
                 }
 
@@ -94,17 +96,20 @@ public class TeamActivity extends AppCompatActivity {
 
 
             // right swipe
-            viewHolder.rightView.setClickable(true);
-            viewHolder.rightView.setOnClickListener(new View.OnClickListener() {
+            viewHolder.right_view.setClickable(true);
+            viewHolder.right_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     analyze(viewHolder, position);
                 }
             });
 
+            if(players[position].isRecommend())
+                viewHolder.swipe_layout.setBackgroundColor(0xFF0000);
+
             // left swipe
-            viewHolder.leftView.setClickable(true);
-            viewHolder.leftView.setOnClickListener(new View.OnClickListener() {
+            viewHolder.left_view.setClickable(true);
+            viewHolder.left_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setRecommend(viewHolder, position);
@@ -112,7 +117,7 @@ public class TeamActivity extends AppCompatActivity {
                 }
             });
 
-            viewHolder.swipeLayout.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
+            viewHolder.swipe_layout.setOnSwipeListener(new SwipeLayout.OnSwipeListener() {
                 @Override
                 public void onBeginSwipe(SwipeLayout swipeLayout, boolean moveToRight) {
                 }
@@ -145,13 +150,15 @@ public class TeamActivity extends AppCompatActivity {
 
             Toast.makeText(context, "Вы порекомедновали " + players[position].getLastName(),
                     Toast.LENGTH_SHORT).show();
+            viewHolder.constraint_layout.setBackgroundColor(0xDCDCDC);
+
 
             ContentValues contentValues = new ContentValues();
             SQLiteDatabase db = new DBHelper(context).getWritableDatabase();
             contentValues.put("recommended", 1);
             db.update("players", contentValues, "_id=" + players[position].getId(), null);
 
-            viewHolder.swipeLayout.animateReset();
+            viewHolder.swipe_layout.animateReset();
         }
 
         @SuppressLint("SetTextI18n")
@@ -176,7 +183,7 @@ public class TeamActivity extends AppCompatActivity {
                 Toast.makeText(context, "У вас не осталось энергии", Toast.LENGTH_SHORT).show();
             }
 
-            viewHolder.swipeLayout.animateReset();
+            viewHolder.swipe_layout.animateReset();
         }
 
         @Override
@@ -202,8 +209,11 @@ public class TeamActivity extends AppCompatActivity {
                     players[position].getPreview(2) ? Integer.toString(players[position].getPhysicalSkill()) : "—"
             );
 
-            holder.swipeLayout.setOffset(position);
-            holder.swipeLayout.reset();
+            if(players[position].isRecommend())
+                holder.constraint_layout.setBackgroundColor(0xDCDCDC);
+
+            holder.swipe_layout.setOffset(position);
+            holder.swipe_layout.reset();
         }
 
         @Override
@@ -218,8 +228,17 @@ public class TeamActivity extends AppCompatActivity {
             SQLiteDatabase db = new DBHelper(context).getReadableDatabase();
             Cursor cursor = db.query(
                     "players",
-                    new String[]{"_id", "name", "position", "age", "assaulter_skill", "defender_skill", "physical_skill",
-                            "preview"},
+                    new String[]{
+                            DBHelper.KEY_ID,
+                            DBHelper.KEY_NAME,
+                            DBHelper.KEY_POSITION,
+                            DBHelper.KEY_AGE,
+                            DBHelper.KEY_ASSAULTER_SKILL,
+                            DBHelper.KEY_DEFENDER_SKILL,
+                            DBHelper.KEY_PHYSICAL_SKILL,
+                            DBHelper.KEY_VIEW,
+                            DBHelper.KEY_RECOMMENDED
+                    },
                     "team = ?",
                     new String[]{team},
                     null,
@@ -235,7 +254,7 @@ public class TeamActivity extends AppCompatActivity {
                     temp.add(new Player(cursor.getInt(0), cursor.getString(1),
                             cursor.getString(2),
                             cursor.getInt(3), cursor.getInt(4), cursor.getInt(5),
-                            cursor.getInt(6), cursor.getInt(7)));
+                            cursor.getInt(6), cursor.getInt(7), cursor.getInt(8)));
                 }while(cursor.moveToNext());
             } catch (Exception ignored) {
                 Toast toast = Toast.makeText(context, "Database is empty. Please, create new game.", Toast.LENGTH_SHORT);
@@ -260,9 +279,10 @@ public class TeamActivity extends AppCompatActivity {
             private int defender_skill;
             private int physical_skill;
             private int[] preview;
+            private boolean recommend;
 
-            Player(int id, String last_name, String position, int age, int forward_skill, int defender_skill, int physical_skill,
-                   int preview) {
+            Player(int id, String last_name, String position, int age, int forward_skill, int defender_skill,
+                   int physical_skill, int preview, int recommend) {
                 this.id = id;
                 this.last_name = last_name;
                 this.position = position;
@@ -276,6 +296,8 @@ public class TeamActivity extends AppCompatActivity {
                 this.forward_skill = forward_skill;
                 this.defender_skill = defender_skill;
                 this.physical_skill = physical_skill;
+
+                this.recommend = recommend > 0;
             }
 
             int getId() {
@@ -314,6 +336,10 @@ public class TeamActivity extends AppCompatActivity {
                  */
                 return this.preview[skill] > 0;
             }
+
+            boolean isRecommend() {
+                return recommend;
+            }
         }
 
         static class ViewHolder extends RecyclerView.ViewHolder {
@@ -324,21 +350,23 @@ public class TeamActivity extends AppCompatActivity {
             private final TextView forward_skill;
             private final TextView defender_skill;
             private final TextView physical_skill;
-            private final SwipeLayout swipeLayout;
-            private final View rightView;
-            private final View leftView;
+            private final SwipeLayout swipe_layout;
+            private final ConstraintLayout constraint_layout;
+            private final View right_view;
+            private final View left_view;
 
             ViewHolder(View view) {
                 super(view);
-                last_name      = view.findViewById(R.id.last_name);
-                position       = view.findViewById(R.id.position);
-                age            = view.findViewById(R.id.age);
-                forward_skill  = view.findViewById(R.id.forward_skill);
-                defender_skill = view.findViewById(R.id.defender_skill);
-                physical_skill = view.findViewById(R.id.physical_skill);
-                swipeLayout    = view.findViewById(R.id.swipe_layout);
-                rightView      = view.findViewById(R.id.right_view);
-                leftView       = view.findViewById(R.id.left_view);
+                last_name           = view.findViewById(R.id.last_name);
+                position            = view.findViewById(R.id.position);
+                age                 = view.findViewById(R.id.age);
+                forward_skill       = view.findViewById(R.id.forward_skill);
+                defender_skill      = view.findViewById(R.id.defender_skill);
+                physical_skill      = view.findViewById(R.id.physical_skill);
+                swipe_layout        = view.findViewById(R.id.swipe_layout);
+                right_view          = view.findViewById(R.id.right_view);
+                left_view           = view.findViewById(R.id.left_view);
+                constraint_layout   = view.findViewById(R.id.swipe_layout_item);
 
             }
         }

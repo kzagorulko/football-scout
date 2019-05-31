@@ -9,20 +9,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "playerDB";
-    private static final String TABLE_PLAYERS = "players";
+    static final String TABLE_PLAYERS = "players";
 
     // database fields
-    private static final String KEY_ID = "_id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_AGE = "age";
-    private static final String KEY_ASSAULTER_SKILL = "assaulter_skill";
-    private static final String KEY_DEFENDER_SKILL = "defender_skill";
-    private static final String KEY_PHYSICAL_SKILL = "physical_skill";
-    private static final String KEY_POSITION = "position";
-    private static final String KEY_POTENTIAL = "potential";
-    private static final String KEY_TEAM = "team";
-    private static final String KEY_VIEW = "preview";
-    private static final String KEY_RECOMMENDED = "recommended";
+    static final String KEY_ID = "_id";
+    static final String KEY_NAME = "name";
+    static final String KEY_AGE = "age";
+    static final String KEY_ASSAULTER_SKILL = "assaulter_skill";
+    static final String KEY_DEFENDER_SKILL = "defender_skill";
+    static final String KEY_PHYSICAL_SKILL = "physical_skill";
+    static final String KEY_POSITION = "position";
+    static final String KEY_POTENTIAL = "potential";
+    static final String KEY_TEAM = "team";
+    static final String KEY_VIEW = "preview";
+    static final String KEY_RECOMMENDED = "recommended";
+    static final String KEY_GROWTH = "growth";
+    static final String KEY_BY_PLAYER = "found_by_player";
 
 
     DBHelper(Context context) {
@@ -42,6 +44,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 KEY_POSITION + " TEXT," +
                 KEY_VIEW + " TINYINT," +
                 KEY_RECOMMENDED + " BIT," +
+                KEY_GROWTH + " SMALLINT," +
+                KEY_BY_PLAYER + " BIT," +
                 KEY_TEAM + " TEXT);"
         );
     }
@@ -70,6 +74,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(KEY_TEAM, team);
         contentValues.put(KEY_VIEW, preview);
         contentValues.put(KEY_RECOMMENDED, 0);
+        contentValues.put(KEY_GROWTH, 0);
+        contentValues.put(KEY_BY_PLAYER, 0);
 
 
 

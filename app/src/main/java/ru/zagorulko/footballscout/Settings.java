@@ -47,6 +47,27 @@ class Settings {
         };
     }
 
+    static String getProgressTitle(Context context) {
+        String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
+        assert language != null;
+        return language.equals("RU") ? "Прогресс ваших игроков:" :
+                language.equals("EN") ? "Players progress:" : "";
+    }
+
+    static String getEnergyTitle(Context context) {
+        String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
+        assert language != null;
+        return (language.equals("RU") ? "Энергия: " :
+                language.equals("EN") ? "Energy: " : "") + getEnergy(context);
+    }
+
+    static String getProgressButtonTitle(Context context) {
+        String language = context.getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE).getString(LANGUAGE, "");
+        assert language != null;
+        return language.equals("RU") ? "Следующее межсезонье" :
+                language.equals("EN") ? "Next off-season" : "";
+    }
+
     static String[] getTeamActivityTitle(Context context) {
         /*
         In array:  0 - last name,
