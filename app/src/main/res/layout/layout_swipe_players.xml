@@ -36,7 +36,8 @@
             android:text="@string/default_position"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/age"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorDefault"/>
 
         <TextView
             android:id="@+id/age"
@@ -47,7 +48,8 @@
             android:text="@string/default_skill"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/forward_skill"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/colorDefault"/>
 
         <TextView
             android:id="@+id/forward_skill"

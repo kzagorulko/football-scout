@@ -11,12 +11,11 @@
     <ImageView
         android:id="@+id/imageForward"
         android:layout_width="69dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="69dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/forward_image_description"
         android:src="@drawable/tshirt"
-        app:layout_constraintBottom_toBottomOf="@+id/imageAttackingMidfielderCenter"
+        app:layout_constraintBottom_toTopOf="@+id/imageAttackingMidfielderCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,16 +82,14 @@
 
     <ImageView
         android:id="@+id/imageDefenderLeft"
-        android:layout_width="69dp"
+        android:layout_width="67dp"
         android:layout_height="67dp"
-        android:layout_marginStart="11dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/left_defender_image_description"
         android:src="@drawable/tshirt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageDefenderCenterLeft"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageMidfieldCenterLeft" />
 
@@ -113,9 +110,8 @@
 
     <ImageView
         android:id="@+id/imageDefenderCenterRight"
-        android:layout_width="69dp"
+        android:layout_width="67dp"
         android:layout_height="67dp"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/center_defender_image_description"
@@ -128,11 +124,9 @@
 
     <ImageView
         android:id="@+id/imageDefenderRight"
-        android:layout_width="69dp"
+        android:layout_width="67dp"
         android:layout_height="67dp"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="11dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/right_defender_image_description"
         android:src="@drawable/tshirt"
@@ -144,9 +138,8 @@
 
     <ImageView
         android:id="@+id/imageDefenderCenterLeft"
-        android:layout_width="69dp"
+        android:layout_width="67dp"
         android:layout_height="67dp"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/center_defender_image_description"

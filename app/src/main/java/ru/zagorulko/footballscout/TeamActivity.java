@@ -150,7 +150,9 @@ public class TeamActivity extends AppCompatActivity {
 
             Toast.makeText(context, "Вы порекомедновали " + players[position].getLastName(),
                     Toast.LENGTH_SHORT).show();
-            viewHolder.constraint_layout.setBackgroundColor(0xDCDCDC);
+            viewHolder.constraint_layout.setBackgroundColor(0xFFDCDCDC);
+            viewHolder.position.setBackgroundColor(0xFFDCDCDC);
+            viewHolder.age.setBackgroundColor(0xFFDCDCDC);
 
 
             ContentValues contentValues = new ContentValues();
@@ -209,8 +211,11 @@ public class TeamActivity extends AppCompatActivity {
                     players[position].getPreview(2) ? Integer.toString(players[position].getPhysicalSkill()) : "—"
             );
 
-            if(players[position].isRecommend())
-                holder.constraint_layout.setBackgroundColor(0xDCDCDC);
+            if(players[position].isRecommend()) {
+                holder.constraint_layout.setBackgroundColor(0xFFDCDCDC);
+                holder.position.setBackgroundColor(0xFFDCDCDC);
+                holder.age.setBackgroundColor(0xFFDCDCDC);
+            }
 
             holder.swipe_layout.setOffset(position);
             holder.swipe_layout.reset();

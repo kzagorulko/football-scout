@@ -9,4 +9,5 @@
     <color name="left_sl">#2B75D2</color>
     <color name="left_sl_text">#fadb4a</color>
     <color name="right_sl_text">#061F3D</color>
+    <color name="colorDefault">#fafafa</color>
 </resources>

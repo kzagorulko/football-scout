@@ -36,4 +36,5 @@
     <string name="default_button_text">next off-season</string>
     <string name="players_progress_default">Players progress</string>
     <string name="image_progress">image progress</string>
+    <string name="just_image">just image</string>
 </resources>
